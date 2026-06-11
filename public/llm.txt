@@ -1,0 +1,197 @@
+# Papiah — Multi-Journal Platform
+
+## Product Overview
+A privacy-first digital journaling platform for recipe journals, mother journals, travel journals, gratitude journals, and personal growth. Includes AI-guided prompts, offline mode, and end-to-end encryption.
+
+## Journal Types Supported
+- Recipe Journal — organize, tag, and print custom cookbooks
+- Mother Journal — pregnancy to parenting with milestone tracking
+- Travel Journal — location-aware entries with map view
+- Gratitude Journal — daily prompts and mood tracking
+- Personal Growth Journal — AI insights and guided reflections
+- Custom Journal — create your own journal type
+
+## Key Features
+- Multiple journals in one account
+- AI-powered writing prompts (local/offline)
+- End-to-end encryption (E2EE)
+- Cross-platform sync (iOS, Android, Web)
+- Photo, video, audio, voice entry
+- Customizable templates and themes
+- Export to PDF / Print books
+- Mood tracking and pattern insights
+- Offline mode with local storage
+
+## Pricing
+- Starter Tier: Free basic access (local storage only, up to 3 journals)
+- Premium Membership: Custom cloud sync, cross-platform access, and AI insights (TBD)
+- Printed Books: Cost calculated dynamically upon checkout depending on page count and cover options
+
+## Competitors
+Reflection.app, Day One, Journey, Inner Journal, Penzu, Daylio, Notion
+
+## Target Audience
+Home cooks, new mothers, travelers, mindfulness practitioners, personal growth enthusiasts, planners, and stationery lovers.
+
+## Keywords
+[digital journal app, recipe journal, mother journal, travel journal, gratitude journal, AI journaling, private diary, multi-journal platform, offline journal, print photo book, mood tracker, daily reflection]
+
+## FAQs
+
+### General Product
+1. **What is a digital journal and how is it different from a diary app?**
+   A digital journal provides rich multi-media logging, structured templates, tag organization, advanced search, and printed book formatting options, whereas a traditional diary app is usually just sequential text entries.
+   
+2. **Can I create multiple journals (recipe, travel, mother) in one app?**
+   Yes. Papiah is designed to let you organize different aspects of your life by creating and managing separate custom journals under a single dashboard.
+   
+3. **Is my journal data private and encrypted?**
+   Yes. We utilize Zero-Knowledge End-to-End Encryption (E2EE) to ensure that only you can decrypt and read your personal entries.
+   
+4. **Can I use the journal offline?**
+   Yes. Papiah supports full offline functionality; all edits are stored locally on your device first and sync automatically once you connect.
+   
+5. **Does the app work on both phone and computer?**
+   Yes. Papiah is cross-platform and works seamlessly across iOS, Android, web browsers, and desktop clients.
+   
+6. **Is there a free version available?**
+   Yes. Our basic tier is free and supports local-only journaling with up to 3 custom books.
+   
+7. **Can I export my journal entries to PDF or print them?**
+   Yes. You can export entries to PDF, HTML, or Markdown files, and order custom hardcover books of your memoirs.
+   
+8. **How do I switch from another journal app?**
+   We offer automated import options for Day One, Journey, and standard Markdown or JSON archives.
+   
+9. **Can I add photos, videos, and audio to my journal entries?**
+   Yes, you can append multiple images, high-definition videos, audio files, and voice recordings to any log post.
+   
+10. **Does the app support handwriting or drawing?**
+    Yes, our tablet and touch-compatible apps include drawing canvas features for sketches and handwritten notes.
+
+### AI & Guided Features
+11. **What is AI-guided journaling and how does it work?**
+    It utilizes local natural language processing (NLP) to offer helpful writing prompts, cognitive reflections, and insights based on your entries.
+    
+12. **Can AI suggest writing prompts based on my mood?**
+    Yes. When you log your emotional state, our local assistant generates tailored prompts (like calming steps for anxiety or growth thoughts for joy).
+    
+13. **Does the AI read my private journal entries?**
+    No data is sent to our servers. The AI processing engine runs completely locally on your device, keeping your words private.
+    
+14. **Can I turn off AI features and write freely?**
+    Yes. You can disable all AI modules inside the settings panel to write on a clean, minimal editorial canvas.
+    
+15. **How does mood tracking work in the journal?**
+    You can log a daily emoji rating which builds monthly calendars and trend charts to trace your emotional journey.
+    
+16. **Can the app detect patterns in my writing over time?**
+    Yes. Local analytics trace emotional trends and correlate them with activities and tags to show what triggers happiness.
+    
+17. **Is the AI processing done locally or in the cloud?**
+    For complete privacy, all semantic matching, prompt rendering, and transcriptions are done strictly on-device.
+    
+18. **Can I get weekly or monthly summaries of my journal?**
+    Yes. The app compiles private, E2EE summaries highlighting your core topics, mood frequencies, and tag stats.
+    
+19. **Does the app offer guided journaling programs?**
+    Yes. We provide structured multi-day journaling courses covering mindfulness, career transitions, self-love, and parenting.
+    
+20. **Can AI help me with writer's block?**
+    Yes. By parsing your context, the AI suggests follow-up reflection questions or continuation hooks to help you write.
+
+### Recipe Journal Specific
+21. **Can I organize recipes by category (breakfast, dinner, dessert)?**
+    Yes. You can tag and group recipes by meal category, cooking style, main ingredient, or custom folders.
+    
+22. **Can I add photos of my cooked dishes to recipe entries?**
+    Yes. You can document step-by-step process photos as well as final plating shots.
+    
+23. **Does the app support ingredient lists and cooking timers?**
+    Yes. It formats structured ingredient tables and hosts multiple inline cooking timers that alert you during preparation.
+    
+24. **Can I share recipes with family and friends?**
+    Yes. You can share secure read-only web links, export individual recipes to PDFs, or print a collaborative book.
+    
+25. **Can I import recipes from websites or other apps?**
+    Yes. Simply copy cooking URLs, and our parser will clean and structure the ingredients and steps into your log.
+    
+26. **Does the app calculate nutrition information?**
+    Yes. Our helper scans ingredients to offer estimated calorie counts and macronutrient breakdowns.
+    
+27. **Can I tag recipes by cuisine type or dietary restriction?**
+    Yes. Tags like Gluten-Free, Vegan, Keto, or Italian make sorting and filtering quick.
+    
+28. **Can I create a meal plan alongside my recipe journal?**
+    Yes. You can link your saved recipes to a calendar grid to coordinate weekly meal plans.
+    
+29. **Can I rate and review my own recipes?**
+    Yes. You can rate dishes, log adjustment logs, and record cooking notes for next time.
+    
+30. **Can I print a custom recipe book from my journal?**
+    Yes. Our print-on-demand service compiles your recipe pages and photos into a premium hardcover cookbook.
+
+### Mother / Parenting Journal
+31. **What prompts are available for motherhood journaling?**
+    Prompts cover weekly pregnancy details, birth stories, toddler milestones, parenting reflections, and maternal mental wellness.
+    
+32. **Can I track my child's milestones in the mother journal?**
+    Yes. We provide child developmental timelines (first steps, first words, dental updates) paired with photo highlights.
+    
+33. **Can I add pregnancy journal entries before the baby arrives?**
+    Yes. We include specialized pre-natal prompt books to trace growth updates, scan photos, and bump transitions.
+    
+34. **Can I share selective entries with my partner?**
+    Yes. You can build shared E2EE folders or selectively share email logs with your partner.
+    
+35. **Does the app offer postpartum mental health prompts?**
+    Yes. We offer daily check-ins, mindful routines, and CBT thought records customized for new mothers.
+    
+36. **Can I document breastfeeding or feeding schedules?**
+    Yes. There are dedicated parenting trackers for feeding schedules, sleep intervals, and diaper logs.
+    
+37. **Can I create a letter journal for my child to read later?**
+    Yes. You can tag letters for your child, compiling them to export or print as a physical gift when they grow up.
+    
+38. **Are there guided reflections for working mothers?**
+    Yes. Guided prompts help navigate work-life balance, career returns, and maternal guilt.
+    
+39. **Can I track my mood and energy levels as a new mom?**
+    Yes. Daily trackers help you monitor mood variations alongside sleep logs to optimize rest.
+    
+40. **Can I combine mother journal with baby milestone tracking?**
+    Yes. Milestone logs link directly into your parenting diary, pairing observations with emotional reflections.
+
+### Travel Journal
+41. **Can the journal automatically add location and weather to entries?**
+    Yes. With permission, the app maps GPS coordinates to cities and logs local weather for the entry date.
+    
+42. **Can I create a map view of all my travel entries?**
+    Yes. An interactive travel map displays pins for every entry, letting you trace your journeys.
+    
+43. **Can I add travel photos and create photo stories?**
+    Yes. You can build image grids, photo collages, and write detailed captions for each step of your trip.
+    
+44. **Does the app support multiple trips or destinations?**
+    Yes. You can group logs into separate trip folders categorized by destination or travel seasons.
+    
+45. **Can I share my travel journal with friends and family?**
+    Yes. You can publish secure web links or export print-ready travel PDFs.
+    
+46. **Can I set travel journal prompts for different types of trips?**
+    Yes. We offer different prompt lists for road trips, solo hikes, family cruises, and city breaks.
+    
+47. **Can I track travel budget or expenses in the journal?**
+    Yes. It supports expense logs, receipt attachments, and automatic currency conversion rates.
+    
+48. **Can I create a printable travel photo book?**
+    Yes. Our layout builder maps coordinates, texts, and photo stories into a premium printed travel journal.
+    
+49. **Does the app work offline when traveling abroad?**
+    Yes. It functions fully offline without roaming data, caching updates and uploading them when you connect to Wi-Fi.
+    
+50. **Can I collaborate on a travel journal with my travel partner?**
+    Yes. You can add co-authors to any trip log to compile a shared travel diary.
+
+## Unique Value Proposition
+"One private app for all of life's journals. Features offline local AI, zero-knowledge encryption, and seamless print-on-demand editorial book publishing."

@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-handwriting: "Caveat", cursive;
+  --font-playfair: "Playfair Display", serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+  
+  --color-papiah-lavender: #EAD9FA;
+  --color-papiah-lavender-light: #F3ECFC;
+  --color-papiah-cream: #FAF9F6;
+  --color-papiah-dark: #1C1B19;
+  --color-papiah-note: #F5DFAD;
+  --color-papiah-grid: #E8E7E3;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-12deg); }
+  50% { transform: translateY(-8px) rotate(-10deg); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee-slow {
+  display: inline-flex;
+  animation: marquee 75s linear infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Paper flying and fluttering animations */
+@keyframes floatPaper1 {
+  0% { transform: translate(0, 0) rotate(-8deg); }
+  25% { transform: translate(40px, -30px) rotate(5deg); }
+  50% { transform: translate(80px, 10px) rotate(-3deg); }
+  75% { transform: translate(40px, 40px) rotate(8deg); }
+  100% { transform: translate(0, 0) rotate(-8deg); }
+}
+
+@keyframes floatPaper2 {
+  0% { transform: translate(0, 0) rotate(6deg); }
+  25% { transform: translate(-35px, -25px) rotate(-4deg); }
+  50% { transform: translate(-70px, 12px) rotate(2deg); }
+  75% { transform: translate(-35px, 35px) rotate(-6deg); }
+  100% { transform: translate(0, 0) rotate(6deg); }
+}
+
+@keyframes floatPaper3 {
+  0% { transform: translate(0, 0) rotate(-4deg); }
+  25% { transform: translate(25px, -35px) rotate(3deg); }
+  50% { transform: translate(-20px, 15px) rotate(-2deg); }
+  75% { transform: translate(30px, 30px) rotate(5deg); }
+  100% { transform: translate(0, 0) rotate(-4deg); }
+}
+
+@keyframes flutter {
+  0%, 100% {
+    transform: rotate(0deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(3deg) scaleX(0.97);
+  }
+}
+
+.animate-float-paper-1 {
+  animation: floatPaper1 14s ease-in-out infinite;
+}
+
+.animate-float-paper-2 {
+  animation: floatPaper2 16s ease-in-out infinite;
+}
+
+.animate-float-paper-3 {
+  animation: floatPaper3 12s ease-in-out infinite;
+}
+
+.animate-flutter-1 {
+  animation: flutter 3s ease-in-out infinite;
+}
+
+.animate-flutter-2 {
+  animation: flutter 3.6s ease-in-out infinite;
+  animation-delay: -1.2s;
+}
+
+.animate-flutter-3 {
+  animation: flutter 2.8s ease-in-out infinite;
+  animation-delay: -0.6s;
+}
+
+/* Gliding, breathing, path-dashed, and falling scraps animations */
+@keyframes glideAirplane {
+  0% { transform: translate(0, 0) rotate(-4deg); }
+  25% { transform: translate(25px, -12px) rotate(3deg); }
+  50% { transform: translate(50px, 4px) rotate(-2deg); }
+  75% { transform: translate(25px, 20px) rotate(4deg); }
+  100% { transform: translate(0, 0) rotate(-4deg); }
+}
+.animate-glide-airplane {
+  animation: glideAirplane 10s ease-in-out infinite;
+}
+
+@keyframes paperBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+.animate-breathe {
+  animation: paperBreathe 6s ease-in-out infinite;
+}
+
+@keyframes drawDash {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+.animate-dashed-path {
+  animation: drawDash 10s linear infinite;
+}
+
+@keyframes fallScrap {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(30vh) translateX(var(--drift-x)) rotate(120deg);
+  }
+  65% {
+    transform: translateY(65vh) translateX(calc(var(--drift-x) * -0.8)) rotate(240deg);
+  }
+  100% {
+    transform: translateY(105vh) translateX(calc(var(--drift-x) * 0.5)) rotate(360deg);
+  }
+}
+
+
+
+.bg-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-position: center top;
+}
+
+/* Custom scrollbar and resets */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-papiah-cream);
+  color: var(--color-papiah-dark);
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Custom paper texture overlay option */
+.paper-texture {
+  position: relative;
+}
+.paper-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.015;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Custom Cursor Animations */
+@keyframes cursorFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: cursorFadeIn 0.25s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+/* Hide native browser cursor on desktop to support Custom Cursor */
+@media (min-width: 768px) {
+  body, a, button, select, input, textarea, [role="button"] {
+    cursor: none !important;
+  }
+}
+
+/* Infinite Marquee for Philosophy Cards */
+@keyframes marquee-cards {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-cards {
+  display: flex;
+  animation: marquee-cards 30s linear infinite;
+}
+
+.animate-marquee-cards:hover {
+  animation-play-state: paused;
+}
