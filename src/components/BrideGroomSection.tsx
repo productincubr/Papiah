@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCursor } from '../context/CursorContext';
-import s8_1 from '../assets/s8_1.jpg';
-import s8_2 from '../assets/s8_2.jpg';
+import s8_1 from '../assets/s8_1.webp';
+import s8_2 from '../assets/s8_2.webp';
 
 export const BrideGroomSection: React.FC = () => {
   const { setCursorType } = useCursor();

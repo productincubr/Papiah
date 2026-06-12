@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import luxuryJournalsVase from "../assets/luxury_journals_vase.png";
+import luxuryJournalsVase from "../assets/luxury_journals_vase.webp";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 

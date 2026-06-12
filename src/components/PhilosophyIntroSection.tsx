@@ -3,10 +3,10 @@ import { useCursor } from '../context/CursorContext';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import journeyMindset from '../assets/1st_fold.png';
-import secondFoldImg from '../assets/2nd_fold_dash.png';
-import journeyWedding from '../assets/3rd_fold.png';
-import journeyMotherhood from '../assets/s2_p4.png';
+import journeyMindset from '../assets/1st_fold.webp';
+import secondFoldImg from '../assets/2nd_fold_dash.webp';
+import journeyWedding from '../assets/3rd_fold.webp';
+import journeyMotherhood from '../assets/s2_p4.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -340,7 +340,7 @@ export const PhilosophyIntroSection: React.FC = () => {
       description: "Organize your days, set meaningful goals, and build powerful habits. Designed for clarity, focus, and the intentional pursuit of your best self.",
       image: journeyMindset,
       targetId: "mindset-section",
-      bgColor: 'rgba(235, 239, 232, 0.9)', // Soft warm sage cream to harmonize with 1st_fold.png
+      bgColor: 'rgba(235, 239, 232, 0.9)', // Soft warm sage cream to harmonize with 1st_fold.webp
       borderColor: 'rgba(196, 202, 190, 0.9)',
       useSplitPanel: true,
       badgeIcon: (

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useCursor } from '../context/CursorContext';
-import BgElements from '../assets/bg_elements.png';
-import weddingJournalMockup from '../assets/wedding_journal_mockup.png';
-import iconEngagement from '../assets/icon_engagement.png';
-import iconMehendi from '../assets/icon_mehendi.png';
-import iconHaldi from '../assets/icon_haldi.png';
-import iconWedding from '../assets/icon_wedding.png';
-import iconReception from '../assets/icon_reception.png';
-import iconHoneymoon from '../assets/icon_honeymoon.png';
+import BgElements from '../assets/bg_elements.webp';
+import weddingJournalMockup from '../assets/wedding_journal_mockup.webp';
+import iconEngagement from '../assets/icon_engagement.webp';
+import iconMehendi from '../assets/icon_mehendi.webp';
+import iconHaldi from '../assets/icon_haldi.webp';
+import iconWedding from '../assets/icon_wedding.webp';
+import iconReception from '../assets/icon_reception.webp';
+import iconHoneymoon from '../assets/icon_honeymoon.webp';
 
 interface Milestone {
   title: string;

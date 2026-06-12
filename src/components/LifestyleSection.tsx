@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCursor } from '../context/CursorContext';
-import BgElements from '../assets/bg_elements.png';
+import BgElements from '../assets/bg_elements.webp';
 
 interface JournalCard {
   id: number;

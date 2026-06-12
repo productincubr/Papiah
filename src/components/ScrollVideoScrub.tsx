@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import sectionGrowVideo from '../assets/Section_Grow.mp4';
-import s13Image from '../assets/s13.png';
+import s13Image from '../assets/s13.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,7 +55,7 @@ export const ScrollVideoScrub: React.FC = () => {
           ease: "power2.inOut"
         }, 0);
 
-        // 2. Fade out static s13.png cover image (0% to 18% scroll)
+        // 2. Fade out static s13.webp cover image (0% to 18% scroll)
         tl.to(imageRef.current, {
           opacity: 0,
           duration: 18,
@@ -177,7 +177,7 @@ export const ScrollVideoScrub: React.FC = () => {
           className="absolute inset-0 bg-black opacity-15 z-10 pointer-events-none"
         />
 
-        {/* Static Cover Image (s13.png) - displayed in object-contain initially */}
+        {/* Static Cover Image (s13.webp) - displayed in object-contain initially */}
         <img
           ref={imageRef}
           src={s13Image}

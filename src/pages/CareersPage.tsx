@@ -4,9 +4,9 @@ import { MarqueeBanner } from '../components/MarqueeBanner';
 import { Footer } from '../components/Footer';
 
 // Asset imports
-import careersWorkspace from '../assets/careers_workspace.png';
-import careersPackaging from '../assets/careers_packaging.png';
-import careersCollaboration from '../assets/careers_collaboration.png';
+import careersWorkspace from '../assets/careers_workspace.webp';
+import careersPackaging from '../assets/careers_packaging.webp';
+import careersCollaboration from '../assets/careers_collaboration.webp';
 
 interface Job {
   id: number;

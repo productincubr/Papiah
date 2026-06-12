@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Book1 from '../assets/book_1.jpg';
+import Book1 from '../assets/book_1.webp';
 
 // Define Interface for checkout forms
 interface FormFields {

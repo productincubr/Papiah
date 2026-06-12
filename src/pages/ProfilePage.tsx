@@ -4,7 +4,7 @@ import { Footer } from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
 
 // Fallback placeholder assets if dynamic order products don't have images
-import Product1 from "../assets/Product1.jpeg";
+import Product1 from "../assets/Product1.webp";
 
 export default function ProfilePage() {
   const { user, token, logout, updateProfile } = useAuth();

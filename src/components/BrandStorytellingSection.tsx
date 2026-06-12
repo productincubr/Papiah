@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useCursor } from '../context/CursorContext';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import founderPortraitImg from '../assets/founder_portrait.png';
+import founderPortraitImg from '../assets/founder_portrait.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -1,17 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useCursor } from '../context/CursorContext';
-import Product1 from '../assets/Product1.jpeg';
-import Product2 from '../assets/Product2.jpg';
-import Product3 from '../assets/Product3.jpg';
-import Product4 from '../assets/Product4.jpg';
-import Product5 from '../assets/Product5.jpg';
-import Book1 from '../assets/book_1.jpg';
-import Book2 from '../assets/book_2.jpg';
-import Book3 from '../assets/book_3.jpg';
-import Book4 from '../assets/book_4.jpg';
-import Book5 from '../assets/book_5.jpg';
+import Product1 from '../assets/Product1.webp';
+import Product2 from '../assets/Product2.webp';
+import Product3 from '../assets/Product3.webp';
+import Product4 from '../assets/Product4.webp';
+import Product5 from '../assets/Product5.webp';
+import Book1 from '../assets/book_1.webp';
+import Book2 from '../assets/book_2.webp';
+import Book3 from '../assets/book_3.webp';
+import Book4 from '../assets/book_4.webp';
+import Book5 from '../assets/book_5.webp';
 import VideoWebm from '../assets/featured_hover.webm';
-import PlaceholderImage from '../assets/featured_hover_placeholder.jpg';
+import PlaceholderImage from '../assets/featured_hover_placeholder.webp';
 
 interface ProductData {
   id: number;

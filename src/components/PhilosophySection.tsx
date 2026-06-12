@@ -1,9 +1,9 @@
 import React from 'react';
 import { useCursor } from '../context/CursorContext';
-import IconClarity from '../assets/3rd_1.png';
-import IconSlowLiving from '../assets/3rd_2.png';
-import IconThoughtful from '../assets/3rd_3.png';
-import IconPersonal from '../assets/3rd_4.png';
+import IconClarity from '../assets/3rd_1.webp';
+import IconSlowLiving from '../assets/3rd_2.webp';
+import IconThoughtful from '../assets/3rd_3.webp';
+import IconPersonal from '../assets/3rd_4.webp';
 
 export const PhilosophySection: React.FC = () => {
   const { setCursorType } = useCursor();

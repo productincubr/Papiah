@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import customerTestimonial from '../assets/customer_testimonial.png';
+import customerTestimonial from '../assets/customer_testimonial.webp';
 
 interface TestimonialCard {
   id: number;

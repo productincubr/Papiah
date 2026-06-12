@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useCursor } from '../context/CursorContext';
-import s9_1 from '../assets/s9_1.jpg';
-import s9_2 from '../assets/s9_2.jpg';
+import s9_1 from '../assets/s9_1.webp';
+import s9_2 from '../assets/s9_2.webp';
 
 export const MotherhoodSection: React.FC = () => {
   const { setCursorType } = useCursor();

@@ -4,10 +4,10 @@ import { Footer } from "../components/Footer";
 import { useCart } from "../context/CartContext";
 
 // Recommended items assets
-import Book1 from "../assets/book_1.jpg";
-import Book2 from "../assets/book_2.jpg";
-import Book3 from "../assets/book_3.jpg";
-import Book4 from "../assets/book_4.jpg";
+import Book1 from "../assets/book_1.webp";
+import Book2 from "../assets/book_2.webp";
+import Book3 from "../assets/book_3.webp";
+import Book4 from "../assets/book_4.webp";
 
 export default function CartPage() {
   const { cartItems, updateQuantity: apiUpdateQuantity, removeItem: apiRemoveItem, cartSubtotal } = useCart();

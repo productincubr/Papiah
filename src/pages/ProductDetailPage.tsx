@@ -4,15 +4,15 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 
 // Image Imports
-import s10 from '../assets/s10.jpg'; // Open journal lifestyle image
-import Product1 from '../assets/Product1.jpeg';
-import Product3 from '../assets/Product3.jpg';
-import Product4 from '../assets/Product4.jpg';
-import Product5 from '../assets/Product5.jpg';
-import Book1 from '../assets/book_1.jpg';
-import Book3 from '../assets/book_3.jpg';
-import Book4 from '../assets/book_4.jpg';
-import Book5 from '../assets/book_5.jpg';
+import s10 from '../assets/s10.webp'; // Open journal lifestyle image
+import Product1 from '../assets/Product1.webp';
+import Product3 from '../assets/Product3.webp';
+import Product4 from '../assets/Product4.webp';
+import Product5 from '../assets/Product5.webp';
+import Book1 from '../assets/book_1.webp';
+import Book3 from '../assets/book_3.webp';
+import Book4 from '../assets/book_4.webp';
+import Book5 from '../assets/book_5.webp';
 
 export const ProductDetailPage: React.FC = () => {
   // 1. INTERACTIVE STATE VARIABLES

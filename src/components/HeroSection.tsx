@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useCursor } from '../context/CursorContext';
 import { CursorReactivePaper } from './CursorReactivePaper';
-import heroImage from '../assets/hero.png';
-import heroMobile from '../assets/hero_mobile.png';
+import heroImage from '../assets/hero.webp';
+import heroMobile from '../assets/hero_mobile.webp';
 
 
 

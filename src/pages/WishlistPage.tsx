@@ -5,12 +5,12 @@ import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 
 // Fallback images matching collection catalog
-import Book1 from "../assets/book_1.jpg";
-import Book2 from "../assets/book_2.jpg";
-import Book3 from "../assets/book_3.jpg";
-import Book4 from "../assets/book_4.jpg";
-import Book5 from "../assets/book_5.jpg";
-import Product2 from "../assets/Product2.jpg";
+import Book1 from "../assets/book_1.webp";
+import Book2 from "../assets/book_2.webp";
+import Book3 from "../assets/book_3.webp";
+import Book4 from "../assets/book_4.webp";
+import Book5 from "../assets/book_5.webp";
+import Product2 from "../assets/Product2.webp";
 
 interface WishlistProduct {
   id: string;

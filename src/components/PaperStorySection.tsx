@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCursor } from '../context/CursorContext';
-import s10 from '../assets/s10.jpg';
+import s10 from '../assets/s10.webp';
 
 export const PaperStorySection: React.FC = () => {
   const { setCursorType } = useCursor();
