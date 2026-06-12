@@ -7,7 +7,7 @@ export const FibreToFeelingSection: React.FC = () => {
 
   return (
     <section 
-      className="w-full bg-gradient-to-r from-[#E8EDF2] via-white to-white relative z-10 select-none border-b border-papiah-grid/40 py-20 md:py-24 overflow-hidden"
+      className="w-full bg-[#F2EDE4] relative z-10 select-none border-b border-papiah-grid/40 py-20 md:py-24 overflow-hidden"
       onMouseEnter={() => setCursorType('philosophy')}
       onMouseLeave={() => setCursorType('default')}
     >

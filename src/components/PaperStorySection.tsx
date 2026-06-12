@@ -8,7 +8,7 @@ export const PaperStorySection: React.FC = () => {
   return (
     <section 
       id="paper-story-section"
-      className="w-full bg-gradient-to-r from-white via-white to-[#E8EDF2] relative z-10 select-none border-b border-papiah-grid/40 py-20 md:py-24 overflow-hidden"
+      className="w-full bg-[#F2EDE4] relative z-10 select-none border-b border-papiah-grid/40 py-20 md:py-24 overflow-hidden"
       onMouseEnter={() => setCursorType('philosophy')}
       onMouseLeave={() => setCursorType('default')}
     >

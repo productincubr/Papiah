@@ -61,47 +61,49 @@ export const Navbar: React.FC = () => {
 
   return (
     <header className="w-full bg-[#FAF9F6] border-b border-papiah-grid/40 relative z-40 select-none">
-      <div className="max-w-7xl mx-auto px-4 md:px-10 py-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-10 h-16 md:h-20 flex items-center transition-all duration-300">
         
-        {/* Logo on Left */}
-        <a 
-          href="/" 
-          onClick={(e) => handleLinkClick(e, '/')}
-          className="flex items-center cursor-pointer hover:opacity-90 transition-opacity"
-        >
-          <img src={logo} alt="Papiah Logo" className="h-14 md:h-16 w-auto object-contain" />
-        </a>
-
-        {/* Navigation Links - Center */}
-        <nav className="hidden lg:flex items-center gap-7">
+        {/* Logo on Left - Flex Item (Logo) */}
+        <div className="flex items-center shrink-0">
+          <a 
+            href="/" 
+            onClick={(e) => handleLinkClick(e, '/')}
+            className="flex items-center cursor-pointer hover:opacity-90 transition-opacity"
+          >
+            <img src={logo} alt="Papiah Logo" className="h-[2.4rem] md:h-[3.3rem] w-auto object-contain transition-all duration-300" />
+          </a>
+        </div>
+ 
+        {/* Navigation Links - Center - Flex Item (Grow) */}
+        <nav className="hidden lg:flex items-center justify-center flex-grow gap-7 xl:gap-9 px-4">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               onClick={(e) => handleLinkClick(e, link.href)}
-              className="text-[11px] font-bold tracking-[0.2em] text-gray-600 hover:text-papiah-dark transition-colors duration-200 relative group"
+              className="text-[11px] lg:text-[12px] xl:text-[13px] font-bold tracking-[0.2em] text-gray-600 hover:text-papiah-dark transition-colors duration-200 relative group"
             >
               {link.name}
               <span className="absolute bottom-[-4px] left-0 w-0 h-[1.5px] bg-[#9E4C41] transition-all duration-200 group-hover:w-full"></span>
             </a>
           ))}
         </nav>
-
-        {/* Icons - Right */}
-        <div className="flex items-center gap-5 md:gap-6 text-gray-700">
+ 
+        {/* Icons - Right - Flex Item */}
+        <div className="flex items-center justify-end shrink-0 gap-5 md:gap-6 text-gray-700 ml-auto">
           {/* Search Icon / Input */}
           {isSearchOpen ? (
-            <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 border border-[#E8E7E3] bg-[#FAF9F6] px-3 py-1 rounded-full transition-all duration-300 w-40 md:w-56 animate-fade-in">
+            <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 border border-[#E8E7E3] bg-[#FAF9F6] px-3 py-1 md:py-1.5 rounded-full transition-all duration-300 w-40 md:w-56 xl:w-64 animate-fade-in">
               <input 
                 type="text" 
                 value={searchVal}
                 onChange={(e) => setSearchVal(e.target.value)}
                 placeholder="Search products..." 
-                className="bg-transparent border-none outline-none text-[11px] text-papiah-dark placeholder-gray-450 w-full font-sans"
+                className="bg-transparent border-none outline-none text-[11px] md:text-xs text-papiah-dark placeholder-gray-450 w-full font-sans"
                 autoFocus
               />
               <button type="submit" className="text-gray-500 hover:text-papiah-dark shrink-0 cursor-pointer p-0.5">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 md:w-[0.95rem] md:h-[0.95rem] transition-all duration-300">
                   <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
                 </svg>
               </button>
@@ -115,7 +117,7 @@ export const Navbar: React.FC = () => {
               className="hover:text-papiah-dark hover:scale-105 transition-all duration-150 p-1.5 cursor-pointer" 
               aria-label="Search"
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 md:w-[1.35rem] md:h-[1.35rem] transition-all duration-300">
                 <circle cx="11" cy="11" r="8" />
                 <path d="m21 21-4.3-4.3" />
               </svg>
@@ -127,7 +129,7 @@ export const Navbar: React.FC = () => {
             className="hover:text-papiah-dark hover:scale-105 transition-all duration-150 p-1.5 cursor-pointer" 
             aria-label="Account"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 md:w-[1.35rem] md:h-[1.35rem] transition-all duration-300">
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
@@ -138,7 +140,7 @@ export const Navbar: React.FC = () => {
             className="hover:text-papiah-dark hover:scale-105 transition-all duration-150 p-1.5 relative cursor-pointer" 
             aria-label="Shopping Cart"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 md:w-[1.35rem] md:h-[1.35rem] transition-all duration-300">
               <circle cx="8" cy="21" r="1" />
               <circle cx="19" cy="21" r="1" />
               <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
@@ -149,7 +151,7 @@ export const Navbar: React.FC = () => {
               </span>
             )}
           </button>
-
+ 
           {/* Mobile Menu Toggle Button */}
           <button
             className="lg:hidden p-1.5 hover:text-papiah-dark"
@@ -165,7 +167,7 @@ export const Navbar: React.FC = () => {
             </svg>
           </button>
         </div>
-
+ 
       </div>
 
       {/* Mobile Dropdown Menu */}

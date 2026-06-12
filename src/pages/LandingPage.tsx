@@ -7,9 +7,9 @@ import { FeaturedCollections } from '../components/FeaturedCollections';
 import { LoremIpsumMarquee } from '../components/LoremIpsumMarquee';
 import { GreenBannerSection } from '../components/GreenBannerSection';
 import { CustomerTestimonialsSection } from '../components/CustomerTestimonialsSection';
-import { ScrollVideoScrub } from '../components/ScrollVideoScrub';
 import { PaperStorySection } from '../components/PaperStorySection';
 import { FibreToFeelingSection } from '../components/FibreToFeelingSection';
+import { BrandStorytellingSection } from '../components/BrandStorytellingSection';
 import { Footer } from '../components/Footer';
 
 const LandingPage: React.FC = () => {
@@ -64,20 +64,14 @@ const LandingPage: React.FC = () => {
         <div className="absolute top-[-4.5px] right-0 border-r-5 border-t-5 border-l-5 border-b-5 border-transparent border-r-gray-300"></div>
       </div>
 
-      {/* 11. SCROLL-CONTROLLED VIDEO SCRUBBING SECTION */}
-      <ScrollVideoScrub />
-
-      {/* Decorative page ticks grid divider */}
-      <div className="relative w-full h-[1px] bg-papiah-grid/65 select-none z-10">
-        <div className="absolute top-[-4.5px] left-0 border-l-5 border-t-5 border-r-5 border-b-5 border-transparent border-l-gray-300"></div>
-        <div className="absolute top-[-4.5px] right-0 border-r-5 border-t-5 border-l-5 border-b-5 border-transparent border-r-gray-300"></div>
-      </div>
-
       {/* 12. NINTH SECTION: ARTISANAL PAPER STORY */}
       <PaperStorySection />
 
       {/* 13. TENTH SECTION: FIBRE TO FEELING PROCESS */}
-      <FibreToFeelingSection />
+      <FibreToFeelingSection /> 
+
+      {/* 14. BRAND STORYTELLING SECTION */}
+      <BrandStorytellingSection />
 
       {/* 13. BOTTOM FOOTER */}
       <Footer />
