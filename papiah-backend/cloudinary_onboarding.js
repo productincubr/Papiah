@@ -1,11 +1,14 @@
 import { v2 as cloudinary } from "cloudinary";
+import dotenv from "dotenv";
 
-// STEP 3.1: Configure Cloudinary with inline credentials
+dotenv.config();
+
+// STEP 3.1: Configure Cloudinary using environment variables
 cloudinary.config({
-  cloud_name: "dfbmahjk8",
-  api_key: "392469622373722",
-  api_secret: "34tXojUfTDjbC3PvbNiZqOhbdYU",
-  secure: true
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
 });
 
 async function runOnboarding() {
