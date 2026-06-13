@@ -12,6 +12,7 @@ import Book4 from '../assets/book_4.webp';
 import Book5 from '../assets/book_5.webp';
 import VideoWebm from '../assets/featured_hover.webm';
 import PlaceholderImage from '../assets/featured_hover_placeholder.webp';
+import FeaturedBg from '../assets/featured_collections_bg.webp';
 
 interface ProductData {
   id: number;
@@ -109,7 +110,8 @@ export const FeaturedCollections: React.FC = () => {
 
   return (
     <section 
-      className="w-full bg-[#F5F1EA] relative overflow-hidden"
+      className="w-full relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${FeaturedBg})` }}
       onMouseEnter={() => setCursorType('featured')}
       onMouseLeave={() => setCursorType('default')}
     >
@@ -122,8 +124,6 @@ export const FeaturedCollections: React.FC = () => {
           scrollbar-width: none;
         }
       `}} />
-      {/* Subtle grid elements in bg to match the motif */}
-      <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto pt-20 pb-24 px-4 md:px-10 relative z-10">
         
