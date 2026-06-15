@@ -12,6 +12,7 @@ import Book4 from '../assets/book_4.webp';
 import Book5 from '../assets/book_5.webp';
 import VideoWebm from '../assets/featured_hover.webm';
 import FeaturedBg from '../assets/featured_collections_bg.webp';
+import KagajTexture from '../assets/kagaj.png';
 
 interface ProductData {
   id: number;
@@ -203,7 +204,8 @@ export const FeaturedCollections: React.FC = () => {
             {featuredProducts.map((prod) => (
               <div
                 key={prod.id}
-                className="w-[245px] shrink-0 snap-center md:w-full md:shrink md:snap-align-none bg-[#FFFFFF] border border-gray-200/40 rounded-[20px] overflow-visible flex flex-col group relative transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.07)] shadow-[0_4px_16px_rgba(0,0,0,0.03)]"
+                className="w-[245px] shrink-0 snap-center md:w-full md:shrink md:snap-align-none bg-papiah-cream bg-cover bg-center border border-gray-200/40 rounded-[20px] overflow-visible flex flex-col group relative transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.07)] shadow-[0_4px_16px_rgba(0,0,0,0.03)]"
+                style={{ backgroundImage: `url(${KagajTexture})` }}
                 onMouseEnter={() => setHoveredProductId(prod.id)}
                 onMouseLeave={() => setHoveredProductId(null)}
               >

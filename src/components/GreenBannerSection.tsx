@@ -15,23 +15,23 @@ const quotes: Quote[] = [
     subtitle: "REFLECT. GROW. REMEMBER."
   },
   {
-    lines: ["For the days", "you need clarity."],
+    lines: ["For the days", "when you need", "absolute clarity."],
     subtitle: "WRITE. REFLECT. BLOOM."
   },
   {
-    lines: ["For the dreams", "still becoming."],
+    lines: ["For the dreams", "that you are", "still becoming."],
     subtitle: "PAUSE. BREATHE. BEGIN."
   },
   {
-    lines: ["For the memories", "worth keeping."],
+    lines: ["For the memories", "that are deeply", "worth keeping."],
     subtitle: "CAPTURE. KEEP. CHERISH."
   },
   {
-    lines: ["For the chapters", "yet to be written."],
+    lines: ["For the chapters", "that are yet", "to be written."],
     subtitle: "PLANT. NURTURE. BLOOM."
   },
   {
-    lines: ["Some stories", "deserve paper."],
+    lines: ["Some stories", "deserve to be", "on paper."],
     subtitle: "WRITE. REFLECT. BLOOM."
   }
 ];
@@ -56,14 +56,15 @@ export const GreenBannerSection: React.FC = () => {
       });
     }
 
-    // 2. Continuous spotlight slow drift left/right and up/down (barely noticeable)
+    // 2. Continuous spotlight slow pulse (breathing effect)
     if (spotlightRef.current) {
       gsap.fromTo(spotlightRef.current, 
-        { x: '-=30px', y: '-=10px' },
+        { opacity: 0.65, scale: 0.98, transformOrigin: "50% 0%" },
         {
-          x: '+=60px',
-          y: '+=20px',
-          duration: 16,
+          opacity: 0.85,
+          scale: 1.02,
+          transformOrigin: "50% 0%",
+          duration: 5,
           yoyo: true,
           repeat: -1,
           ease: 'sine.inOut'
@@ -240,14 +241,22 @@ export const GreenBannerSection: React.FC = () => {
         background: 'linear-gradient(180deg, #0F180C 0%, #1B2A12 50%, #0C130A 100%)'
       }}
     >
-      {/* Center Spotlight Glow */}
+      {/* Top Spotlight Source - Bright Core */}
+      <div 
+        className="absolute top-0 left-1/2 w-[180px] h-[40px] rounded-full pointer-events-none z-0 opacity-95 blur-[12px]"
+        style={{
+          transform: 'translate(-50%, -50%)',
+          background: 'radial-gradient(ellipse at center, rgba(200, 211, 63, 0.65) 0%, rgba(200, 211, 63, 0.15) 70%, transparent 100%)'
+        }}
+      />
+
+      {/* Top Spotlight Beam - Large Conic/Elliptical Glow */}
       <div 
         ref={spotlightRef}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] sm:w-[550px] sm:h-[550px] md:w-[750px] md:h-[750px] rounded-full blur-[100px] pointer-events-none z-0"
+        className="absolute top-0 left-1/2 w-[95%] max-w-[1000px] h-full pointer-events-none z-0"
         style={{
-          background: 'radial-gradient(circle, rgba(200, 211, 63, 0.07) 0%, rgba(36, 51, 23, 0.25) 50%, transparent 75%)',
-          opacity: 0.75,
-          transform: 'translate(-50%, -50%) scale(1)'
+          transform: 'translateX(-50%)',
+          background: 'radial-gradient(ellipse 70% 60% at 50% 0%, rgba(200, 211, 63, 0.22) 0%, rgba(200, 211, 63, 0.04) 50%, transparent 80%)'
         }}
       />
 
@@ -280,41 +289,52 @@ export const GreenBannerSection: React.FC = () => {
       {/* Editorial Narrative Quote Content */}
       <div className="relative z-10 w-full max-w-[950px] mx-auto flex flex-col items-center justify-center px-6 text-center">
         
-        {/* Headline Container with smooth fade, blur, and motion transitions */}
-        <div className="flex flex-col items-center justify-center select-none min-h-[160px] sm:min-h-[200px] md:min-h-[250px] lg:min-h-[300px] w-full">
-          {currentQuote.lines.map((line, lineIdx) => (
-            <h3 
-              key={`${currentIndex}-${lineIdx}`} 
-              className="quote-line text-3xl sm:text-4xl md:text-[52px] lg:text-[66px] font-serif font-light text-white/95 leading-[1.35] py-2 tracking-wide font-cormorant"
-            >
-              {line}
-            </h3>
-          ))}
+        {/* Combined container to prevent layout shifts and maintain a constant, elegant gap */}
+        <div className="flex flex-col items-center justify-center select-none w-full min-h-[290px] sm:min-h-[350px] md:min-h-[440px] lg:min-h-[500px]">
+          {/* Headline Container */}
+          <div className="flex flex-col items-center justify-center w-full">
+            {currentQuote.lines.map((line, lineIdx) => (
+              <h3 
+                key={`${currentIndex}-${lineIdx}`} 
+                className="quote-line text-3xl sm:text-4xl md:text-[52px] lg:text-[66px] font-serif font-light text-white/95 leading-[1.35] py-2 tracking-wide font-cormorant"
+              >
+                {line}
+              </h3>
+            ))}
+          </div>
+
+          {/* Handcrafted Brush Underline */}
+          <div className="w-60 sm:w-72 md:w-96 h-6 mt-4 relative">
+            <svg className="w-full h-full text-[#C8D33F]" viewBox="0 0 200 30" fill="none" preserveAspectRatio="none">
+              <path 
+                ref={underlinePathRef}
+                d="M 5 20 C 40 4, 80 26, 120 12 C 150 2, 185 18, 195 10 C 145 22, 95 8, 20 22" 
+                stroke="currentColor" 
+                strokeWidth="2.6" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                fill="none" 
+              />
+            </svg>
+          </div>
+
+          {/* Subtitle */}
+          <p 
+            ref={subtitleRef}
+            className="font-sans text-xs md:text-sm font-semibold tracking-[0.38em] text-[#C8D33F] mt-8 md:mt-10 leading-relaxed select-none"
+          >
+            {currentQuote.subtitle}
+          </p>
         </div>
 
-        {/* Handcrafted Brush Underline */}
-        <div className="w-60 sm:w-72 md:w-96 h-4 mt-8 relative">
-          <svg className="w-full h-full text-[#C8D33F]" viewBox="0 0 200 12" fill="none" preserveAspectRatio="none">
-            <path 
-              ref={underlinePathRef}
-              d="M 5 7 C 45 4, 90 10, 140 5 C 165 3, 185 7, 195 5 C 150 8, 100 4, 30 9" 
-              stroke="currentColor" 
-              strokeWidth="2.8" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-              fill="none" 
-            />
-          </svg>
-        </div>
+      </div>
 
-        {/* Subtitle */}
-        <p 
-          ref={subtitleRef}
-          className="font-sans text-xs md:text-sm font-semibold tracking-[0.38em] text-[#C8D33F] mt-10 md:mt-12 leading-relaxed select-none"
-        >
-          {currentQuote.subtitle}
-        </p>
-
+      {/* Decorative Divider Line & Star at bottom center */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none select-none z-10 opacity-30">
+        <div className="w-[1px] h-10 bg-[#C8D33F]/40" />
+        <svg className="w-3 h-3 text-[#C8D33F] mt-2.5 animate-pulse" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L14.3 9.7L22 12L14.3 14.3L12 22L9.7 14.3L2 12L9.7 9.7L12 2Z" />
+        </svg>
       </div>
     </section>
   );
