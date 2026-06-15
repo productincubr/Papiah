@@ -11,7 +11,6 @@ import Book3 from '../assets/book_3.webp';
 import Book4 from '../assets/book_4.webp';
 import Book5 from '../assets/book_5.webp';
 import VideoWebm from '../assets/featured_hover.webm';
-import PlaceholderImage from '../assets/featured_hover_placeholder.webp';
 import FeaturedBg from '../assets/featured_collections_bg.webp';
 
 interface ProductData {
@@ -211,13 +210,13 @@ export const FeaturedCollections: React.FC = () => {
                 {/* ── IMAGE ZONE ── */}
                 <div className="relative w-full rounded-t-[20px] overflow-hidden">
                   {/* Lifestyle image — 4:5 ratio */}
-                  <div className="w-full aspect-[4/5] bg-[#FAF9F6]">
+                  <div className="w-full aspect-[4/5] bg-transparent">
                     {prod.id === 1 ? (
                       <div className="w-full h-full relative">
                         <img
-                          src={PlaceholderImage}
+                          src={prod.coverImage}
                           alt={prod.title}
-                          className={`w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-[1.03] ${
+                          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.03] ${
                             hoveredProductId === 1 ? 'opacity-0' : 'opacity-100'
                           }`}
                           loading="lazy"
@@ -235,7 +234,7 @@ export const FeaturedCollections: React.FC = () => {
                       </div>
                     ) : (
                       <img
-                        src={prod.image}
+                        src={prod.coverImage}
                         alt={prod.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                         loading="lazy"
@@ -254,10 +253,9 @@ export const FeaturedCollections: React.FC = () => {
                       style={{ backgroundColor: '#F7F1E8' }}
                     >
                       <img
-                        src={prod.coverImage}
-                        alt={`${prod.title} Cover`}
-                        className="w-full h-full object-contain"
-                        style={{ padding: '8px' }}
+                        src={prod.image}
+                        alt={`${prod.title} Lifestyle`}
+                        className="w-full h-full object-cover"
                         loading="lazy"
                       />
                     </div>
