@@ -3,7 +3,7 @@ import { useCursor } from '../context/CursorContext';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import founderPortraitImg from '../assets/founder_portrait.webp';
-import kagajImg from '../assets/kagaj.png';
+import kagajImg from '../assets/kagaj.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 

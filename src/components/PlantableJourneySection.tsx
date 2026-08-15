@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import step1 from '../assets/journey_step_1_new.png';
-import step2 from '../assets/journey_step_2_new.png';
-import step3 from '../assets/journey_step_3_new.png';
-import step4 from '../assets/journey_step_4_new.png';
-import step5 from '../assets/journey_step_5_new.png';
-import brushStrokeBg from '../assets/brush_stroke_bg.png';
-import grassImg from '../assets/grass.png';
+import step1 from '../assets/journey_step_1_new.webp';
+import step2 from '../assets/journey_step_2_new.webp';
+import step3 from '../assets/journey_step_3_new.webp';
+import step4 from '../assets/journey_step_4_new.webp';
+import step5 from '../assets/journey_step_5_new.webp';
+import brushStrokeBg from '../assets/brush_stroke_bg.webp';
+import grassImg from '../assets/grass.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 

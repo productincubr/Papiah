@@ -12,7 +12,7 @@ import Book4 from '../assets/book_4.webp';
 import Book5 from '../assets/book_5.webp';
 import VideoWebm from '../assets/featured_hover.webm';
 import FeaturedBg from '../assets/featured_collections_bg.webp';
-import KagajTexture from '../assets/kagaj.png';
+import KagajTexture from '../assets/kagaj.webp';
 
 interface ProductData {
   id: number;
