@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { API_URL } from "../config/api";
 
 export interface User {
   id: string;
@@ -27,8 +28,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-
-  const API_URL = "http://localhost:3000/api";
 
   useEffect(() => {
     const storedToken = localStorage.getItem("papiah_token");

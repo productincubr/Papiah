@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
+import { API_URL } from "../config/api";
 
 // Fallback placeholder assets if dynamic order products don't have images
 import Product1 from "../assets/Product1.webp";
@@ -67,8 +68,6 @@ export default function ProfilePage() {
   const [addressError, setAddressError] = useState("");
   const [addressSuccess, setAddressSuccess] = useState("");
   const [addressSaving, setAddressSaving] = useState(false);
-
-  const API_URL = "http://localhost:3000/api";
 
   // Redirect to login if user is not authenticated
   useEffect(() => {

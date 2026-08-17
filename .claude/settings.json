@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(timeout 8 node index.js)",
+      "Bash(echo \"EXIT_CODE=$?\")",
+      "Bash(tasklist)",
+      "PowerShell(cd \"c:\\\\Users\\\\soura\\\\OneDrive\\\\Desktop\\\\Papiah\\\\papiah-backend\"; $p = Start-Process node -ArgumentList \"index.js\" -PassThru -WindowStyle Hidden -RedirectStandardOutput \"out.log\" -RedirectStandardError \"err.log\"; Start-Sleep -Seconds 4; try { $resp = Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing -TimeoutSec 5; Write-Output \"STATUS: $\\($resp.StatusCode\\)\"; Write-Output \"BODY: $\\($resp.Content\\)\" } catch { Write-Output \"REQUEST FAILED: $\\($_.Exception.Message\\)\" }; Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue; Write-Output \"---OUT LOG---\"; Get-Content out.log -ErrorAction SilentlyContinue; Write-Output \"---ERR LOG---\"; Get-Content err.log -ErrorAction SilentlyContinue)",
+      "PowerShell(cd \"c:\\\\Users\\\\soura\\\\OneDrive\\\\Desktop\\\\Papiah\\\\papiah-backend\"; $p = Start-Process node -ArgumentList \"index.js\" -PassThru -WindowStyle Hidden -RedirectStandardOutput \"out2.log\" -RedirectStandardError \"err2.log\"; Start-Sleep -Seconds 3; Write-Output \"HasExited: $\\($p.HasExited\\)\"; netstat -ano | Select-String \":3000\"; Start-Sleep -Seconds 3; Write-Output \"---after 6s---\"; Get-Content out2.log -ErrorAction SilentlyContinue; Get-Content err2.log -ErrorAction SilentlyContinue; Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue)",
+      "Bash(powershell -NoProfile -Command \"Get-Process node -ErrorAction SilentlyContinue | Stop-Process -Force\")",
+      "Bash(node index.js)",
+      "Bash(node \"C:\\\\Users\\\\soura\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-soura-OneDrive-Desktop-Papiah\\\\d00c9c14-3bda-42d4-9365-d291a76aa087\\\\scratchpad\\\\confirm_user.mjs\")",
+      "Bash(node _confirm_user_temp.mjs)",
+      "Bash(curl -s -m 5 -X POST http://localhost:3000/api/users/login -H \"Content-Type: application/json\" -d '{\"email\":\"sourabhsingh22112003@gmail.com\",\"password\":\"saurabh2225\"}')",
+      "Bash(curl -s -m 8 -X POST http://localhost:3000/api/users/register -H \"Content-Type: application/json\" -d '{\"email\":\"papiah_test_verify_flow@mailinator.com\",\"password\":\"TestPass1234\",\"firstName\":\"Test\",\"lastName\":\"Flow\"}')",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\('has session:', !!j.session, 'user email:', j.user?.email, 'email_confirmed_at:', j.user?.email_confirmed_at\\);}\\)\")",
+      "Bash(node _cleanup_temp.mjs)",
+      "Bash(node _check_profile_temp.mjs)",
+      "Bash(node _debug_update_temp.mjs)",
+      "Bash(node _debug_full_flow_temp.mjs)",
+      "Bash(node _debug_isolate_temp.mjs)"
+    ]
+  }
+}

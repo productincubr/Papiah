@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useCursor } from '../context/CursorContext';
 import logo from '../assets/logo.svg';
+import { LOCATION_CHANGE_EVENT } from '../utils/navigation';
 
 export const Footer: React.FC = () => {
   const { setCursorType } = useCursor();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
-  
+
   // Track pathname state to react to client-side navigation
   const [pathname, setPathname] = useState(window.location.pathname);
 
@@ -15,18 +16,10 @@ export const Footer: React.FC = () => {
       setPathname(window.location.pathname);
     };
 
-    window.addEventListener('popstate', handleLocationChange);
-
-    // Override pushState to listen to client-side transitions
-    const originalPushState = window.history.pushState;
-    window.history.pushState = function (...args) {
-      originalPushState.apply(this, args);
-      handleLocationChange();
-    };
+    window.addEventListener(LOCATION_CHANGE_EVENT, handleLocationChange);
 
     return () => {
-      window.removeEventListener('popstate', handleLocationChange);
-      window.history.pushState = originalPushState;
+      window.removeEventListener(LOCATION_CHANGE_EVENT, handleLocationChange);
     };
   }, []);
 

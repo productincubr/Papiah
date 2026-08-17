@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { API_URL } from "../config/api";
 
 export default function CreateAccountPage() {
   const { register } = useAuth();
@@ -350,7 +351,7 @@ export default function CreateAccountPage() {
               {/* Google Social Login */}
               <button
                 type="button"
-                onClick={() => window.location.href = "http://localhost:3000/api/users/auth/google"}
+                onClick={() => window.location.href = `${API_URL}/users/auth/google`}
                 className="w-full flex items-center justify-center gap-3 border border-gray-200 hover:bg-[#FAF9F6] transition-colors py-3.5 rounded-xl text-xs font-semibold text-[#1C1B19]/90 cursor-pointer"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -377,7 +378,7 @@ export default function CreateAccountPage() {
               {/* Apple Social Login */}
               <button
                 type="button"
-                onClick={() => window.location.href = "http://localhost:3000/api/users/auth/apple"}
+                onClick={() => window.location.href = `${API_URL}/users/auth/apple`}
                 className="w-full flex items-center justify-center gap-3 border border-gray-200 hover:bg-[#FAF9F6] transition-colors py-3.5 rounded-xl text-xs font-semibold text-[#1C1B19]/90 cursor-pointer"
               >
                 <svg className="w-4 h-4 text-black" fill="currentColor" viewBox="0 0 24 24">

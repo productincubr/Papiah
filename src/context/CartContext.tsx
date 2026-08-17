@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
+import { API_URL } from "../config/api";
 
 export interface CartItem {
   id: string; // Database cart_item id, or Product ID if guest
@@ -29,7 +30,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const { token, user } = useAuth();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const API_URL = "http://localhost:3000/api";
 
   const fetchCart = async () => {
     if (!token) {

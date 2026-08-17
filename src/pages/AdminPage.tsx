@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
+import { API_URL } from "../config/api";
 
 interface Stats {
   totalRevenue: number;
@@ -67,7 +68,6 @@ interface Customer {
 export default function AdminPage() {
   const { user, token } = useAuth();
   const [activeTab, setActiveTab] = useState("Dashboard");
-  const API_URL = "http://localhost:3000/api";
 
   // State Variables
   const [stats, setStats] = useState<Stats | null>(null);

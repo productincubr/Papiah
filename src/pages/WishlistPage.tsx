@@ -3,6 +3,7 @@ import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { API_URL } from "../config/api";
 
 // Fallback images matching collection catalog
 import Book1 from "../assets/book_1.webp";
@@ -31,7 +32,6 @@ export default function WishlistPage() {
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
 
-  const API_URL = "http://localhost:3000/api";
   const fallbackImages = [Book1, Book5, Book3, Product2, Book2, Book4];
 
   // Fetch Wishlist Items

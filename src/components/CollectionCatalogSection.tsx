@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { API_URL } from '../config/api';
 import Book1 from '../assets/book_1.webp';
 import Book2 from '../assets/book_2.webp';
 import Book3 from '../assets/book_3.webp';
@@ -33,7 +34,6 @@ export const CollectionCatalogSection: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const API_URL = "http://localhost:3000/api";
   const fallbackImages = [Book1, Book5, Book3, Product2, Book2, Book4];
 
   // 2. PRODUCT DATA MATCHING SCREENSHOT & IMAGES (Fallback Mock Data)

@@ -19,6 +19,7 @@ import { CursorProvider } from './context/CursorContext';
 import { CustomCursor } from './components/CustomCursor';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import { LOCATION_CHANGE_EVENT } from './utils/navigation';
 import './App.css';
 
 function App() {
@@ -30,18 +31,10 @@ function App() {
       window.scrollTo(0, 0);
     };
 
-    window.addEventListener('popstate', handleLocationChange);
-
-    // Override pushState to listen to programmatically triggered route changes
-    const originalPushState = window.history.pushState;
-    window.history.pushState = function (...args) {
-      originalPushState.apply(this, args);
-      handleLocationChange();
-    };
+    window.addEventListener(LOCATION_CHANGE_EVENT, handleLocationChange);
 
     return () => {
-      window.removeEventListener('popstate', handleLocationChange);
-      window.history.pushState = originalPushState;
+      window.removeEventListener(LOCATION_CHANGE_EVENT, handleLocationChange);
     };
   }, []);
 
