@@ -18,7 +18,11 @@
       "Bash(node _check_profile_temp.mjs)",
       "Bash(node _debug_update_temp.mjs)",
       "Bash(node _debug_full_flow_temp.mjs)",
-      "Bash(node _debug_isolate_temp.mjs)"
+      "Bash(node _debug_isolate_temp.mjs)",
+      "Bash(curl -s -m 15 -w \"\\\\nHTTP_STATUS:%{http_code}\\\\n\" https://papiah.onrender.com/)",
+      "Bash(curl -s -m 20 -X POST https://papiah.onrender.com/api/users/register -H \"Content-Type: application/json\" -d '{\"email\":\"papiah_live_test_check@mailinator.com\",\"password\":\"TestPass1234\",\"firstName\":\"Live\",\"lastName\":\"Test\"}')",
+      "Bash(time curl -s -m 20 -X POST https://papiah.onrender.com/api/users/login -H \"Content-Type: application/json\" -d '{\"email\":\"nonexistent@test.com\",\"password\":\"wrongpass\"}')",
+      "Bash(node _cleanup_live_temp.mjs)"
     ]
   }
 }
