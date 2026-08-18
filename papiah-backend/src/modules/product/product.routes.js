@@ -1,5 +1,6 @@
 import express from "express";
 import * as productController from "./product.controller.js";
+import { verifyToken, isAdmin } from "../../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -16,8 +17,8 @@ router.get("/:slug", productController.getBySlug);
 router.get("/id/:id", productController.getById);
 
 // Admin operations
-router.post("/", productController.create);
-router.patch("/:id", productController.update);
-router.delete("/:id", productController.remove);
+router.post("/", verifyToken, isAdmin, productController.create);
+router.patch("/:id", verifyToken, isAdmin, productController.update);
+router.delete("/:id", verifyToken, isAdmin, productController.remove);
 
 export default router;
