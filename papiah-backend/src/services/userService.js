@@ -1,6 +1,29 @@
 import { supabase, createUserClient } from "../config/supabase.js";
 
 /**
+ * Fetch the public.users profile row and merge its custom fields onto the
+ * raw Supabase Auth user object. Auth user objects have no first_name/
+ * last_name/avatar/profile-role, so callers that hand `user` straight to the
+ * frontend must go through this or those fields silently come back blank.
+ */
+const attachProfile = async (user) => {
+  const { data: profile } = await supabase
+    .from("users")
+    .select("role, first_name, last_name, phone, avatar")
+    .eq("id", user.id)
+    .single();
+
+  return {
+    ...user,
+    role: profile?.role || "customer",
+    firstName: profile?.first_name || "",
+    lastName: profile?.last_name || "",
+    phone: profile?.phone || "",
+    avatar: profile?.avatar || "",
+  };
+};
+
+/**
  * Register a new user with email, password, and profile metadata.
  * The on_auth_user_created trigger automatically inserts the record into public.users.
  *
@@ -28,7 +51,7 @@ export const registerUser = async ({ email, password, firstName, lastName, phone
   const { data: sessionData, error: signInError } = await createUserClient().auth.signInWithPassword({ email, password });
   if (signInError) throw signInError;
 
-  return sessionData;
+  return { ...sessionData, user: await attachProfile(sessionData.user) };
 };
 
 /**
@@ -46,7 +69,7 @@ export const loginUser = async ({ email, password }) => {
   });
 
   if (error) throw error;
-  return data;
+  return { ...data, user: await attachProfile(data.user) };
 };
 
 /**
