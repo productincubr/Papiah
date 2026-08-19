@@ -3,6 +3,7 @@ import * as cartService from "../cart/cart.service.js";
 import * as productService from "../product/product.service.js";
 import * as couponService from "../coupon/coupon.service.js";
 import * as shippingService from "../shipping/shipping.service.js";
+import * as emailService from "../../services/email.service.js";
 
 /**
  * Creates an order from the user's current cart.
@@ -103,7 +104,23 @@ export const createOrder = async (userId, { addressId, couponCode, shippingSpeed
   // 9. Clear the user's cart
   await cartService.clearCart(userId);
 
-  return getOrderById(orderId);
+  const fullOrder = await getOrderById(orderId);
+
+  // 10. Fire order confirmation + admin notification emails. Never let an
+  // email provider outage block a successful order -- log and move on.
+  try {
+    const { data: customer } = await supabase.from("users").select("email").eq("id", userId).single();
+    if (customer?.email) {
+      await Promise.all([
+        emailService.sendOrderConfirmationEmail(fullOrder, customer.email),
+        emailService.sendAdminOrderNotification(fullOrder, customer.email),
+      ]);
+    }
+  } catch (emailErr) {
+    console.error("Order placed, but confirmation email failed:", emailErr);
+  }
+
+  return fullOrder;
 };
 
 /**

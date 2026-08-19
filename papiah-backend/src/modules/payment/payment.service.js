@@ -31,7 +31,7 @@ export const createRazorpayOrder = async (orderId) => {
   };
 
   const razorpayOrder = await razorpay.orders.create(options);
-  return razorpayOrder;
+  return { ...razorpayOrder, key_id: process.env.RAZORPAY_KEY_ID || "rzp_test_mock_id" };
 };
 
 /**
