@@ -57,6 +57,29 @@ export const login = async (req, res) => {
 };
 
 /**
+ * Exchanges a refresh token for a fresh access token + session
+ */
+export const refreshToken = async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+    if (!refreshToken) {
+      return res.status(400).json({ error: "refreshToken is required" });
+    }
+
+    const data = await userService.refreshSession(refreshToken);
+
+    return res.status(200).json({
+      message: "Session refreshed",
+      user: data.user,
+      session: data.session,
+    });
+  } catch (error) {
+    console.error("Refresh Token Controller Error:", error);
+    return res.status(401).json({ error: error.message || "Failed to refresh session" });
+  }
+};
+
+/**
  * Handles user logout
  */
 export const logout = async (req, res) => {

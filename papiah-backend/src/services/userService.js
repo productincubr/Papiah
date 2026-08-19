@@ -73,6 +73,18 @@ export const loginUser = async ({ email, password }) => {
 };
 
 /**
+ * Exchanges a refresh token for a new access token + session, so the
+ * frontend can silently keep a user (or admin) signed in past the ~1hr
+ * access token expiry instead of them hitting "Invalid or expired access
+ * token" errors and having to log back in.
+ */
+export const refreshSession = async (refreshToken) => {
+  const { data, error } = await createUserClient().auth.refreshSession({ refresh_token: refreshToken });
+  if (error) throw error;
+  return { ...data, user: await attachProfile(data.user) };
+};
+
+/**
  * Log out the currently authenticated user session (revokes the refresh token server-side).
  */
 export const logoutUser = async (accessToken) => {
