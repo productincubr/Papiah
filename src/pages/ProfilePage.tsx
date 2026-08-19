@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
+import { useNotify } from "../context/NotificationContext";
 import { API_URL } from "../config/api";
 
 // Fallback placeholder assets if dynamic order products don't have images
@@ -9,6 +10,7 @@ import Product1 from "../assets/Product1.webp";
 
 export default function ProfilePage() {
   const { user, token, logout, updateProfile } = useAuth();
+  const { toast, confirm } = useNotify();
   
   const [activeTab, setActiveTab] = useState("My Profile");
   const [email, setEmail] = useState("");
@@ -160,6 +162,13 @@ export default function ProfilePage() {
     }
   }, [activeTab, token]);
 
+  useEffect(() => {
+    if (activeTab === "Notifications" && token) {
+      fetchUserOrders();
+      fetchRewardsHistory();
+    }
+  }, [activeTab, token]);
+
   const fetchUserOrders = async () => {
     if (!token) return;
     try {
@@ -195,7 +204,8 @@ export default function ProfilePage() {
   };
 
   const handleCancelOrder = async (orderId: string) => {
-    if (!window.confirm("Are you sure you want to cancel this order?")) return;
+    const confirmed = await confirm("Are you sure you want to cancel this order?", { title: "Cancel Order", confirmLabel: "Yes, Cancel", danger: true });
+    if (!confirmed) return;
     if (!token) return;
     try {
       setCancellingOrderId(orderId);
@@ -205,17 +215,17 @@ export default function ProfilePage() {
       });
       const data = await response.json();
       if (response.ok) {
-        alert("Order cancelled successfully!");
+        toast("Order cancelled successfully!", "success");
         fetchUserOrders();
         fetchProfileSummary();
         if (selectedOrder && selectedOrder.id === orderId) {
           fetchOrderDetail(orderId);
         }
       } else {
-        alert(data.error || "Failed to cancel order.");
+        toast(data.error || "Failed to cancel order.", "error");
       }
     } catch (err: any) {
-      alert(err.message || "Failed to connect to server.");
+      toast(err.message || "Failed to connect to server.", "error");
     } finally {
       setCancellingOrderId(null);
     }
@@ -244,20 +254,20 @@ export default function ProfilePage() {
 
       const data = await response.json();
       if (!response.ok) {
-        alert(data.error || "Failed to upload image.");
+        toast(data.error || "Failed to upload image.", "error");
         return;
       }
 
       const result = await updateProfile({ avatar: data.url });
       if (result.success) {
-        alert("Profile picture updated successfully!");
+        toast("Profile picture updated successfully!", "success");
         fetchProfileSummary();
       } else {
-        alert(result.error || "Failed to update profile picture.");
+        toast(result.error || "Failed to update profile picture.", "error");
       }
     } catch (err: any) {
       console.error(err);
-      alert(err.message || "Failed to upload image.");
+      toast(err.message || "Failed to upload image.", "error");
     }
   };
 
@@ -282,7 +292,9 @@ export default function ProfilePage() {
 
   // 1. Log Out Handler
   const handleLogout = async () => {
-    if (window.confirm("Are you sure you want to log out?")) {
+    const confirmed = await confirm("Are you sure you want to log out?", { title: "Log Out" });
+    if (confirmed) {
+      toast("You've been logged out. See you soon!", "info");
       await logout();
     }
   };
@@ -324,9 +336,10 @@ export default function ProfilePage() {
       });
       if (response.ok) {
         fetchProfileSummary();
+        toast("Default address updated", "success");
       } else {
         const data = await response.json();
-        alert(data.error || "Failed to set default address");
+        toast(data.error || "Failed to set default address", "error");
       }
     } catch (err) {
       console.error(err);
@@ -335,7 +348,8 @@ export default function ProfilePage() {
 
   // 4. Delete Address
   const handleDeleteAddress = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this address?")) return;
+    const confirmed = await confirm("Are you sure you want to delete this address?", { title: "Delete Address", confirmLabel: "Delete", danger: true });
+    if (!confirmed) return;
     try {
       const response = await fetch(`${API_URL}/addresses/${id}`, {
         method: "DELETE",
@@ -343,9 +357,10 @@ export default function ProfilePage() {
       });
       if (response.ok) {
         fetchProfileSummary();
+        toast("Address deleted", "success");
       } else {
         const data = await response.json();
-        alert(data.error || "Failed to delete address");
+        toast(data.error || "Failed to delete address", "error");
       }
     } catch (err) {
       console.error(err);
@@ -1127,7 +1142,7 @@ export default function ProfilePage() {
                         <button 
                           onClick={() => {
                             navigator.clipboard.writeText(redeemedCoupon.couponCode);
-                            alert("Coupon code copied to clipboard!");
+                            toast("Coupon code copied to clipboard!", "success");
                           }}
                           className="text-xs font-bold text-[#8E76B8] hover:text-[#7D62A5] tracking-widest uppercase transition-colors"
                         >
@@ -1249,6 +1264,86 @@ export default function ProfilePage() {
                     Back to Profile
                   </button>
                 </div>
+              </div>
+            )}
+
+            {/* Notifications Tab */}
+            {activeTab === "Notifications" && (
+              <div className="bg-white border border-[#E8E7E3] rounded-[1.5rem] p-6 md:p-8 shadow-[0_8px_30px_rgba(46,58,42,0.02)] text-left flex flex-col gap-2">
+                <h3 className="font-playfair text-xl text-[#2F3A2A] font-semibold tracking-tight border-b border-gray-100 pb-4 mb-2">
+                  Notifications
+                </h3>
+
+                {loadingOrders ? (
+                  <p className="text-xs text-gray-400 py-6">Loading notifications...</p>
+                ) : (() => {
+                  const orderNotifications = ordersList.map((o: any) => ({
+                    id: `order-${o.id}`,
+                    date: o.created_at,
+                    kind: "order" as const,
+                    title:
+                      o.order_status === "delivered"
+                        ? `Order ${o.order_number} delivered`
+                        : o.order_status === "shipped"
+                        ? `Order ${o.order_number} shipped`
+                        : o.order_status === "cancelled"
+                        ? `Order ${o.order_number} cancelled`
+                        : `Order ${o.order_number} placed`,
+                    detail: `₹${Number(o.total).toLocaleString("en-IN")} · ${o.payment_method} · payment ${o.payment_status}`,
+                  }));
+                  const rewardNotifications = rewardsHistory.map((tx: any) => ({
+                    id: `reward-${tx.id}`,
+                    date: tx.created_at,
+                    kind: "reward" as const,
+                    title:
+                      tx.type === "earned"
+                        ? `You earned ${tx.points} reward points`
+                        : `Redeemed ${Math.abs(tx.points)} points for a coupon`,
+                    detail: tx.reference_id || "",
+                  }));
+                  const items = [...orderNotifications, ...rewardNotifications].sort(
+                    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+                  );
+
+                  if (items.length === 0) {
+                    return (
+                      <p className="text-xs text-gray-400 py-10 text-center">
+                        No notifications yet. Place an order or earn reward points to see activity here.
+                      </p>
+                    );
+                  }
+
+                  return (
+                    <div className="flex flex-col divide-y divide-gray-100">
+                      {items.map((item) => (
+                        <div key={item.id} className="flex items-start gap-4 py-4">
+                          <div
+                            className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
+                              item.kind === "order" ? "bg-[#F3ECFC] text-[#8E76B8]" : "bg-amber-50 text-amber-600"
+                            }`}
+                          >
+                            {item.kind === "order" ? (
+                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                              </svg>
+                            ) : (
+                              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5a2 2 0 10-2 2h2zm0 0h4m-4 0H8m12 3a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                              </svg>
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-[13px] font-semibold text-[#2F3A2A]">{item.title}</p>
+                            {item.detail && <p className="text-[11.5px] text-gray-500 mt-0.5">{item.detail}</p>}
+                          </div>
+                          <span className="text-[10.5px] text-gray-400 shrink-0 whitespace-nowrap">
+                            {new Date(item.date).toLocaleDateString("en-IN", { day: "numeric", month: "short" })}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })()}
               </div>
             )}
 

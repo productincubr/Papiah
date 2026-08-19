@@ -3,6 +3,7 @@ import { MarqueeBanner } from '../components/MarqueeBanner';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { useCart } from '../context/CartContext';
+import { useNotify } from '../context/NotificationContext';
 import { API_URL } from '../config/api';
 import { LOCATION_CHANGE_EVENT } from '../utils/navigation';
 
@@ -52,6 +53,7 @@ const getSlugFromPath = () => {
 
 export const ProductDetailPage: React.FC = () => {
   const { addToCart } = useCart();
+  const { toast } = useNotify();
 
   const [slug, setSlug] = useState<string>(getSlugFromPath());
   const [product, setProduct] = useState<Product | null>(null);
@@ -63,8 +65,6 @@ export const ProductDetailPage: React.FC = () => {
   const [isWishlisted, setIsWishlisted] = useState<boolean>(false);
   const [isZoomed, setIsZoomed] = useState<boolean>(false);
   const [activeAccordion, setActiveAccordion] = useState<string | null>('DETAILS');
-  const [addedMessage, setAddedMessage] = useState<string>('');
-
   const [related, setRelated] = useState<RelatedProduct[]>([]);
   const [carouselIndex, setCarouselIndex] = useState<number>(0);
   const [activeSlide, setActiveSlide] = useState(0);
@@ -129,8 +129,7 @@ export const ProductDetailPage: React.FC = () => {
       category: product.categories?.name,
       slug: product.slug,
     });
-    setAddedMessage(`Added ${quantity} to cart`);
-    setTimeout(() => setAddedMessage(''), 2200);
+    toast(`Added ${quantity} × ${product.title} to cart`, "success");
   };
 
   const handleBuyNow = async () => {
@@ -428,9 +427,6 @@ export const ProductDetailPage: React.FC = () => {
                 BUY NOW
               </button>
 
-              {addedMessage && (
-                <p className="text-[12px] font-sans font-semibold text-[#2E7D32] text-center animate-fade-in">{addedMessage} ✓</p>
-              )}
             </div>
 
             {/* Accordion list */}
@@ -531,7 +527,7 @@ export const ProductDetailPage: React.FC = () => {
                     <button
                       className="w-9 h-9 rounded-full bg-white border border-gray-200/60 shadow-[0_2px_6px_rgba(0,0,0,0.04)] flex items-center justify-center text-gray-500 hover:text-papiah-dark hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer shrink-0 ml-3"
                       aria-label={`Add ${prod.title} to Cart`}
-                      onClick={() => addToCart(prod.id, 1, { name: prod.title, price: prod.price, coverImage: prod.cover_image, slug: prod.slug })}
+                      onClick={() => { addToCart(prod.id, 1, { name: prod.title, price: prod.price, coverImage: prod.cover_image, slug: prod.slug }); toast(`${prod.title} added to cart`, "success"); }}
                     >
                       <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -580,7 +576,7 @@ export const ProductDetailPage: React.FC = () => {
                     <button
                       className="w-8 h-8 rounded-full bg-white border border-gray-200/60 shadow-[0_2px_6px_rgba(0,0,0,0.04)] flex items-center justify-center text-gray-500 hover:text-[#8E76B8] active:scale-95 transition-all duration-200 cursor-pointer shrink-0 ml-3"
                       aria-label={`Add ${prod.title} to Cart`}
-                      onClick={() => addToCart(prod.id, 1, { name: prod.title, price: prod.price, coverImage: prod.cover_image, slug: prod.slug })}
+                      onClick={() => { addToCart(prod.id, 1, { name: prod.title, price: prod.price, coverImage: prod.cover_image, slug: prod.slug }); toast(`${prod.title} added to cart`, "success"); }}
                     >
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />

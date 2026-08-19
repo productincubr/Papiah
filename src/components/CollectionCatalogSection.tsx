@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { useNotify } from '../context/NotificationContext';
 import { API_URL } from '../config/api';
 import Book1 from '../assets/book_1.webp';
 import Book2 from '../assets/book_2.webp';
@@ -31,6 +32,7 @@ export const CollectionCatalogSection: React.FC = () => {
 
   // API states
   const { addToCart } = useCart();
+  const { toast } = useNotify();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -517,8 +519,8 @@ export const CollectionCatalogSection: React.FC = () => {
                       </div>
 
                       {/* Quick Add Button */}
-                      <button 
-                        onClick={() => addToCart(prod.id.toString(), 1, prod)}
+                      <button
+                        onClick={() => { addToCart(prod.id.toString(), 1, prod); toast(`${prod.name} added to cart`, "success"); }}
                         className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white border border-gray-200/50 shadow-[0_2.5px_8px_rgba(0,0,0,0.04)] flex items-center justify-center text-gray-500 hover:text-papiah-dark hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer shrink-0 ml-2"
                         aria-label={`Add ${prod.name} to Cart`}
                       >

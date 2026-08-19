@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
+import { useNotify } from "../context/NotificationContext";
 import { API_URL } from "../config/api";
 
 interface Stats {
@@ -67,6 +68,7 @@ interface Customer {
 
 export default function AdminPage() {
   const { user, token } = useAuth();
+  const { toast, confirm } = useNotify();
   const [activeTab, setActiveTab] = useState("Dashboard");
 
   // State Variables
@@ -340,6 +342,7 @@ export default function AdminPage() {
         setIsProductModalOpen(false);
         fetchProducts();
         fetchDashboardStats();
+        toast(editingProductId ? "Product updated" : "Product created", "success");
       } else {
         setProductFormError(resData.error || "Failed to save product.");
       }
@@ -379,14 +382,14 @@ export default function AdminPage() {
 
   const uploadFile = async (file: File) => {
     if (!file.type.startsWith("image/")) {
-      alert("Please upload an image file (PNG, JPG, WEBP, etc.)");
+      toast("Please upload an image file (PNG, JPG, WEBP, etc.)", "error");
       return;
     }
-    
+
     setUploadingImage(true);
     const formData = new FormData();
     formData.append("image", file);
-    
+
     try {
       const res = await fetch(`${API_URL}/upload`, {
         method: "POST",
@@ -398,19 +401,21 @@ export default function AdminPage() {
       const data = await res.json();
       if (res.ok && data.url) {
         setProductForm(prev => ({ ...prev, coverImage: data.url }));
+        toast("Image uploaded", "success");
       } else {
-        alert(data.error || "Failed to upload image.");
+        toast(data.error || "Failed to upload image.", "error");
       }
     } catch (err) {
       console.error(err);
-      alert("Error uploading image. Please check your connection.");
+      toast("Error uploading image. Please check your connection.", "error");
     } finally {
       setUploadingImage(false);
     }
   };
 
   const handleDeleteProduct = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this product?")) return;
+    const confirmed = await confirm("Are you sure you want to delete this product?", { title: "Delete Product", confirmLabel: "Delete", danger: true });
+    if (!confirmed) return;
     try {
       const res = await fetch(`${API_URL}/products/${id}`, {
         method: "DELETE",
@@ -419,12 +424,13 @@ export default function AdminPage() {
       if (res.ok) {
         fetchProducts();
         fetchDashboardStats();
+        toast("Product deleted", "success");
       } else {
-        alert("Failed to delete product.");
+        toast("Failed to delete product.", "error");
       }
     } catch (err) {
       console.error(err);
-      alert("Error deleting product.");
+      toast("Error deleting product.", "error");
     }
   };
 
@@ -443,8 +449,9 @@ export default function AdminPage() {
         setUpdatingOrderId(null);
         fetchOrders();
         fetchDashboardStats();
+        toast("Order status updated", "success");
       } else {
-        alert("Failed to update status.");
+        toast("Failed to update status.", "error");
       }
     } catch (err) {
       console.error(err);

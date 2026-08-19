@@ -3,6 +3,7 @@ import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { useNotify } from "../context/NotificationContext";
 import { API_URL } from "../config/api";
 
 // Fallback images matching collection catalog
@@ -26,6 +27,7 @@ interface WishlistProduct {
 export default function WishlistPage() {
   const { user, token, logout } = useAuth();
   const { addToCart } = useCart();
+  const { toast, confirm } = useNotify();
   const [wishlistItems, setWishlistItems] = useState<WishlistProduct[]>([]);
   const [loading, setLoading] = useState(true);
   
@@ -114,8 +116,9 @@ export default function WishlistPage() {
   // Clear all items in wishlist
   const handleClearWishlist = async () => {
     if (wishlistItems.length === 0) return;
-    if (!window.confirm("Are you sure you want to clear your wishlist?")) return;
-    
+    const confirmed = await confirm("Are you sure you want to clear your wishlist?", { title: "Clear Wishlist", confirmLabel: "Clear", danger: true });
+    if (!confirmed) return;
+
     if (token) {
       try {
         // Sequentially remove all items on backend or clear
@@ -126,20 +129,22 @@ export default function WishlistPage() {
           });
         }
         setWishlistItems([]);
+        toast("Wishlist cleared", "success");
       } catch (err) {
         console.error("Error clearing wishlist backend:", err);
       }
     } else {
       setWishlistItems([]);
       localStorage.removeItem("papiah_guest_wishlist");
+      toast("Wishlist cleared", "success");
     }
   };
 
-  // Share wishlist (triggers simple copy link alert)
+  // Share wishlist (copies link to clipboard)
   const handleShareWishlist = () => {
     const shareUrl = window.location.href;
     navigator.clipboard.writeText(shareUrl).then(() => {
-      alert("Wishlist link copied to clipboard! You can share it with family and friends.");
+      toast("Wishlist link copied to clipboard! You can share it with family and friends.", "success");
     }).catch(err => {
       console.error("Could not copy text: ", err);
     });
@@ -155,6 +160,7 @@ export default function WishlistPage() {
       slug: item.slug
     });
     await handleRemoveWishlist(item.id);
+    toast(`${item.name} moved to cart`, "success");
   };
 
   // Newsletter Submit
@@ -189,7 +195,9 @@ export default function WishlistPage() {
 
   // Logout Handler
   const handleLogout = async () => {
-    if (window.confirm("Are you sure you want to log out?")) {
+    const confirmed = await confirm("Are you sure you want to log out?", { title: "Log Out" });
+    if (confirmed) {
+      toast("You've been logged out. See you soon!", "info");
       await logout();
     }
   };

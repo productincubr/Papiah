@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useNotify } from "../context/NotificationContext";
 import { API_URL } from "../config/api";
 
 export default function CreateAccountPage() {
   const { register } = useAuth();
+  const { toast } = useNotify();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -52,11 +54,13 @@ export default function CreateAccountPage() {
 
     if (result.success) {
       setSuccess("Account created successfully! Redirecting...");
+      toast("Account created successfully! Welcome to Papiah.", "success");
       setTimeout(() => {
         window.history.pushState(null, "", "/profile");
       }, 1500);
     } else {
       setError(result.error || "Failed to create account.");
+      toast(result.error || "Failed to create account.", "error");
     }
   };
 

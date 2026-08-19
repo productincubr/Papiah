@@ -19,6 +19,7 @@ import { CursorProvider } from './context/CursorContext';
 import { CustomCursor } from './components/CustomCursor';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import { NotificationProvider } from './context/NotificationContext';
 import { LOCATION_CHANGE_EVENT } from './utils/navigation';
 import './App.css';
 
@@ -57,6 +58,7 @@ function App() {
   return (
     <AuthProvider>
       <CartProvider>
+        <NotificationProvider>
         <CursorProvider>
         <CustomCursor />
         {isCheckout ? (
@@ -93,6 +95,7 @@ function App() {
           <NotFoundPage />
         )}
         </CursorProvider>
+        </NotificationProvider>
       </CartProvider>
     </AuthProvider>
   );

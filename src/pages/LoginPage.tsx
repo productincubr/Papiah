@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useNotify } from "../context/NotificationContext";
 import { API_URL } from "../config/api";
 
 export default function LoginPage() {
   const { login } = useAuth();
+  const { toast } = useNotify();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,9 +33,11 @@ export default function LoginPage() {
     setLoading(false);
 
     if (result.success) {
+      toast("Welcome back! You're logged in.", "success");
       window.history.pushState(null, "", "/profile");
     } else {
       setError(result.error || "Invalid credentials.");
+      toast(result.error || "Invalid credentials.", "error");
     }
   };
 

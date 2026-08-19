@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useCursor } from '../context/CursorContext';
 import { useCart } from '../context/CartContext';
+import { useNotify } from '../context/NotificationContext';
 import { API_URL } from '../config/api';
 import VideoWebm from '../assets/featured_hover.webm';
 import FeaturedBg from '../assets/featured_collections_bg.webp';
@@ -28,6 +29,7 @@ const mapProduct = (p: any): ProductData => ({
 export const FeaturedCollections: React.FC = () => {
   const { setCursorType } = useCursor();
   const { addToCart } = useCart();
+  const { toast } = useNotify();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const cardVideoRef = useRef<HTMLVideoElement>(null);
 
@@ -62,6 +64,7 @@ export const FeaturedCollections: React.FC = () => {
   const handleAddToCart = (e: React.MouseEvent, prod: ProductData) => {
     e.stopPropagation();
     addToCart(prod.id, 1, { name: prod.title, price: prod.price, coverImage: prod.coverImage, slug: prod.slug });
+    toast(`${prod.title} added to cart`, "success");
   };
 
   const [activeSlide, setActiveSlide] = useState(0);
