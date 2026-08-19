@@ -60,7 +60,7 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="w-full bg-[#FAF9F6] border-b border-papiah-grid/40 relative z-40 select-none">
+    <header className="w-full bg-[#FAF9F6] border-b border-papiah-grid/40 sticky top-0 z-40 select-none">
       <div className="max-w-7xl mx-auto px-4 md:px-10 h-16 md:h-20 flex items-center transition-all duration-300">
         
         {/* Logo on Left - Flex Item (Logo) */}
