@@ -1,75 +1,68 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useCursor } from '../context/CursorContext';
-import Product1 from '../assets/Product1.webp';
-import Product2 from '../assets/Product2.webp';
-import Product3 from '../assets/Product3.webp';
-import Product4 from '../assets/Product4.webp';
-import Product5 from '../assets/Product5.webp';
-import Book1 from '../assets/book_1.webp';
-import Book2 from '../assets/book_2.webp';
-import Book3 from '../assets/book_3.webp';
-import Book4 from '../assets/book_4.webp';
-import Book5 from '../assets/book_5.webp';
+import { useCart } from '../context/CartContext';
+import { API_URL } from '../config/api';
 import VideoWebm from '../assets/featured_hover.webm';
 import FeaturedBg from '../assets/featured_collections_bg.webp';
 import KagajTexture from '../assets/kagaj.webp';
+import s10 from '../assets/s10.webp';
 
 interface ProductData {
-  id: number;
+  id: string;
   title: string;
   desc: string;
-  price: string;
-  image: string;
+  price: number;
+  slug: string;
   coverImage: string;
 }
 
+const mapProduct = (p: any): ProductData => ({
+  id: p.id,
+  title: p.title,
+  desc: p.short_description || p.description || '',
+  price: Number(p.price) || 0,
+  slug: p.slug,
+  coverImage: p.cover_image || s10,
+});
+
 export const FeaturedCollections: React.FC = () => {
   const { setCursorType } = useCursor();
-  const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
+  const { addToCart } = useCart();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const cardVideoRef = useRef<HTMLVideoElement>(null);
 
-  const [featuredProducts] = useState<ProductData[]>([
-    {
-      id: 1,
-      title: "Daily Joy Journal",
-      desc: "Capture little happy moments, gratitude notes, and everyday wins to make your day feel lighter.",
-      price: "₹300",
-      image: Product1,
-      coverImage: Book1,
-    },
-    {
-      id: 2,
-      title: "The Clarity Journal",
-      desc: "Organize your thoughts, clear mental clutter, and find direction when life feels overwhelming.",
-      price: "₹300",
-      image: Product2,
-      coverImage: Book2,
-    },
-    {
-      id: 3,
-      title: "Content Ideas Journal",
-      desc: "Plan reels, captions, campaigns, and creative ideas in one place before they disappear.",
-      price: "₹300",
-      image: Product3,
-      coverImage: Book3,
-    },
-    {
-      id: 4,
-      title: "Pet Care Planner",
-      desc: "Track your pet's meals, grooming, vet visits, medicines, and daily care routine with ease.",
-      price: "₹300",
-      image: Product4,
-      coverImage: Book4,
-    },
-    {
-      id: 5,
-      title: "Recipe Keeper",
-      desc: "Save your favorite recipes, family dishes, ingredients, and cooking notes in one beautiful place.",
-      price: "₹300",
-      image: Product5,
-      coverImage: Book5,
-    },
-  ]);
+  const [featuredProducts, setFeaturedProducts] = useState<ProductData[]>([]);
+
+  useEffect(() => {
+    // Try featured products first, then fall back to bestsellers, then any
+    // products, so the homepage always shows something real rather than
+    // hardcoded placeholder items.
+    const load = async () => {
+      for (const endpoint of ['/products/featured', '/products/bestsellers', '/products/all']) {
+        try {
+          const res = await fetch(`${API_URL}${endpoint}`);
+          if (!res.ok) continue;
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setFeaturedProducts(data.slice(0, 5).map(mapProduct));
+            return;
+          }
+        } catch {
+          // try next endpoint
+        }
+      }
+    };
+    load();
+  }, []);
+
+  const goToProduct = (slug: string) => {
+    window.history.pushState(null, '', `/product/${slug}`);
+  };
+
+  const handleAddToCart = (e: React.MouseEvent, prod: ProductData) => {
+    e.stopPropagation();
+    addToCart(prod.id, 1, { name: prod.title, price: prod.price, coverImage: prod.coverImage, slug: prod.slug });
+  };
 
   const [activeSlide, setActiveSlide] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -97,7 +90,7 @@ export const FeaturedCollections: React.FC = () => {
 
   useEffect(() => {
     if (cardVideoRef.current) {
-      if (hoveredProductId === 1) {
+      if (hoveredIndex === 0) {
         cardVideoRef.current.play().catch((err) => {
           console.warn("Card video failed to play:", err);
         });
@@ -106,7 +99,7 @@ export const FeaturedCollections: React.FC = () => {
         cardVideoRef.current.currentTime = 0;
       }
     }
-  }, [hoveredProductId]);
+  }, [hoveredIndex]);
 
   return (
     <section 
@@ -153,8 +146,9 @@ export const FeaturedCollections: React.FC = () => {
 
             {/* Right See All */}
             <div className="absolute right-0 top-1/2 -translate-y-1/2">
-              <a 
-                href="#see-all" 
+              <a
+                href="/collection"
+                onClick={(e) => { e.preventDefault(); window.history.pushState(null, '', '/collection'); }}
                 className="text-[11px] md:text-[12px] font-sans font-bold tracking-widest text-gray-700 hover:text-papiah-dark uppercase relative group pb-1.5"
               >
                 See All
@@ -181,7 +175,10 @@ export const FeaturedCollections: React.FC = () => {
         {/* Grid and Browse container */}
         <div className="relative">
           {/* Floating BROWSE Badge — smaller, lower opacity, further from cards */}
-          <div className="absolute left-[40%] top-[200px] xl:top-[220px] -translate-x-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center justify-center w-[58px] h-[58px] bg-white/80 rounded-full border border-gray-100/70 shadow-[0_4px_14px_rgba(0,0,0,0.04)] cursor-pointer opacity-60 hover:opacity-90 hover:scale-105 transition-all duration-300 group">
+          <div
+            onClick={() => window.history.pushState(null, '', '/collection')}
+            className="absolute left-[40%] top-[200px] xl:top-[220px] -translate-x-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col items-center justify-center w-[58px] h-[58px] bg-white/80 rounded-full border border-gray-100/70 shadow-[0_4px_14px_rgba(0,0,0,0.04)] cursor-pointer opacity-60 hover:opacity-90 hover:scale-105 transition-all duration-300 group"
+          >
             <div className="w-8 h-8 rounded-full bg-[#FAF9F6] flex items-center justify-center mb-0.5 group-hover:bg-[#EAD9FA] transition-colors duration-300">
               <svg className="w-3.5 h-3.5 text-[#9E4C41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
@@ -201,25 +198,26 @@ export const FeaturedCollections: React.FC = () => {
             className="flex flex-row overflow-x-auto md:grid md:grid-cols-3 lg:grid-cols-5 gap-5 lg:gap-6 xl:gap-7 scrollbar-none snap-x snap-mandatory -mx-4 px-4 md:mx-0 md:px-0 pb-4 md:pb-0"
           >
 
-            {featuredProducts.map((prod) => (
+            {featuredProducts.map((prod, idx) => (
               <div
                 key={prod.id}
-                className="w-[245px] shrink-0 snap-center md:w-full md:shrink md:snap-align-none bg-papiah-cream bg-cover bg-center border border-gray-200/40 rounded-[20px] overflow-visible flex flex-col group relative transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.07)] shadow-[0_4px_16px_rgba(0,0,0,0.03)]"
+                className="w-[245px] shrink-0 snap-center md:w-full md:shrink md:snap-align-none bg-papiah-cream bg-cover bg-center border border-gray-200/40 rounded-[20px] overflow-visible flex flex-col group relative transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(0,0,0,0.07)] shadow-[0_4px_16px_rgba(0,0,0,0.03)] cursor-pointer"
                 style={{ backgroundImage: `url(${KagajTexture})` }}
-                onMouseEnter={() => setHoveredProductId(prod.id)}
-                onMouseLeave={() => setHoveredProductId(null)}
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => goToProduct(prod.slug)}
               >
                 {/* ── IMAGE ZONE ── */}
                 <div className="relative w-full rounded-t-[20px] overflow-hidden">
                   {/* Lifestyle image — 4:5 ratio */}
                   <div className="w-full aspect-[4/5] bg-transparent">
-                    {prod.id === 1 ? (
+                    {idx === 0 ? (
                       <div className="w-full h-full relative">
                         <img
                           src={prod.coverImage}
                           alt={prod.title}
                           className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.03] ${
-                            hoveredProductId === 1 ? 'opacity-0' : 'opacity-100'
+                            hoveredIndex === 0 ? 'opacity-0' : 'opacity-100'
                           }`}
                           loading="lazy"
                         />
@@ -230,7 +228,7 @@ export const FeaturedCollections: React.FC = () => {
                           loop
                           playsInline
                           className={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-[1.03] ${
-                            hoveredProductId === 1 ? 'opacity-100' : 'opacity-0'
+                            hoveredIndex === 0 ? 'opacity-100' : 'opacity-0'
                           }`}
                         />
                       </div>
@@ -255,7 +253,7 @@ export const FeaturedCollections: React.FC = () => {
                       style={{ backgroundColor: '#F7F1E8' }}
                     >
                       <img
-                        src={prod.image}
+                        src={prod.coverImage}
                         alt={`${prod.title} Lifestyle`}
                         className="w-full h-full object-cover"
                         loading="lazy"
@@ -286,10 +284,13 @@ export const FeaturedCollections: React.FC = () => {
                   {/* Price + CTA pushed to bottom */}
                   <div className="mt-auto flex flex-col gap-3">
                     <span className="text-[15px] md:text-[17px] text-[#2C2B29] font-bold tracking-wide">
-                      {prod.price}
+                      ₹{prod.price.toLocaleString('en-IN')}
                     </span>
 
-                    <button className="w-full bg-[#CBD83B] hover:bg-[#b8c634] text-[#2E3327] transition-all duration-300 py-[9px] md:py-[11px] text-[10px] md:text-[11px] tracking-[0.2em] font-bold uppercase rounded-[11px] shadow-[0_4px_14px_rgba(203,216,59,0.25)] hover:shadow-[0_6px_22px_rgba(203,216,59,0.4)] select-none cursor-pointer">
+                    <button
+                      onClick={(e) => handleAddToCart(e, prod)}
+                      className="w-full bg-[#CBD83B] hover:bg-[#b8c634] text-[#2E3327] transition-all duration-300 py-[9px] md:py-[11px] text-[10px] md:text-[11px] tracking-[0.2em] font-bold uppercase rounded-[11px] shadow-[0_4px_14px_rgba(203,216,59,0.25)] hover:shadow-[0_6px_22px_rgba(203,216,59,0.4)] select-none cursor-pointer"
+                    >
                       Add To Cart
                     </button>
                   </div>
